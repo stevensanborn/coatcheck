@@ -22,6 +22,7 @@
     "@tabler/icons-react": "^3.11.0",
     "@tanstack/react-query": "^5.51.11",
     "@tanstack/react-query-next-experimental": "^5.51.11",
+    "bigint-buffer": "^1.1.5",
     "daisyui": "^4.12.10",
     "jotai": "^2.9.1",
     "next": "14.2.5",
@@ -30,8 +31,11 @@
     "react-hot-toast": "^2.4.1"
   },
   "devDependencies": {
+    "@babel/preset-typescript": "^7.26.0",
+    "@jest/globals": "^29.7.0",
     "@types/bn.js": "^5.1.0",
-    "@types/jest": "^29.0.3",
+    "@types/jest": "^29.5.12",
+    "@types/mocha": "^10.0.10",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",
