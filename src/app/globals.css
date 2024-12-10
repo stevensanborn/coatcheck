@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+html,
+body {
+    height: 100%;
+}
+
+.wallet-adapter-button-trigger {
+    background: rgb(100, 26, 230) !important;
+    border-radius: 8px !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+}
+.wallet-adapter-dropdown-list,
+.wallet-adapter-button {
+    font-family: inherit !important;
+}
+
+
+
+/* Solana Wallet */
+
+
+
+.web3auth {
+    width: 76%;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 1px;
+    border: 1px solid #0364ff !important;
+    background-color: #0364ff !important;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    margin-bottom: 50px;
+    margin-left: 46px;
+    text-align: center;
+    margin-bottom: 27px;
+    text-transform: none;
+    box-sizing: border-box;
+    cursor: pointer;
+    transition: all 400ms ease;
+    font-family: "DM Sans", sans-serif;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 6px;
+  }
+
+  .signature,
+.publicKey {
+  width: 76%;
+  color: rgb(38, 50, 56);
+  font-weight: 700;
+  font-size: 14px;
+  letter-spacing: 1px;
+  background: rgba(136, 126, 126, 0.04);
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  outline: none;
+  box-sizing: border-box;
+  border: 2px solid rgba(0, 0, 0, 0.02);
+  margin-bottom: 50px;
+  margin-left: 46px;
+  text-align: center;
+  margin-bottom: 27px;
+  font-family: "Ubuntu", sans-serif;
+}
+.web3auth:focus {
+    border: 2px solid rgba(0, 0, 0, 0.18) !important;
+  }
+
+  .sign {
+    text-align: center;
+    padding-top: 40px;
+    color: #8f9095;
+    font-family: "DM Sans", sans-serif;
+    font-weight: bold;
+    font-size: 23px;
+  }
+  
