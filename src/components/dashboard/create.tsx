@@ -3,9 +3,7 @@
 import React, { useState } from 'react';
 import { PublicKey, SystemProgram, Transaction, VersionedTransaction } from '@solana/web3.js';
 import { useWallet } from '@solana/wallet-adapter-react';
-
-import { Program } from '@coral-xyz/anchor';
-import { Basic, getBasicProgram } from '@project/anchor';
+import { getBasicProgram } from '@project/anchor';
 import { useAnchorProvider } from '../solana/solana-provider';
 import * as anchor from '@coral-xyz/anchor';
 import { toast } from 'react-toastify';
@@ -13,7 +11,7 @@ import { toast } from 'react-toastify';
 
 import prisma from '../../libs/prisma';
 
-export default function CreateCoatCheck() {
+export default function CreateCoatCheck( {setRenderIncrement,renderIncrement}: {setRenderIncrement: (renderIncrement: number) => void,renderIncrement: number} ) {
     // Add state for form fields
     const [name, setName] = useState("");
     const [description, setDescription] = useState("");
@@ -42,6 +40,7 @@ export default function CreateCoatCheck() {
         setName("");
         setDescription("");
         setStatus("Coat Checked Added");
+        setRenderIncrement(renderIncrement + 1);
         return data;
     }
 
@@ -102,8 +101,6 @@ export default function CreateCoatCheck() {
             isValid = false;
         }
         
-       
-        
         if (isValid) {
             console.log("Form is valid, submitting...");
             // Add your submission logic here
@@ -111,13 +108,10 @@ export default function CreateCoatCheck() {
                 console.log("coatCheck", coatCheck);
                 // handleChainSubmit(name, description, coatCheck.id);
              });
-
-
             // await handleDBSubmit(name, description, coatCheck.id);
         }else{
             setStatus("form is not valid");
         }
-
 
     }
     

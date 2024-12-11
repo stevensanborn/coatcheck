@@ -8,7 +8,9 @@ import { useCallback, useEffect, useState } from "react";
 
 export default function Dashboard() {
  const { publicKey } = useWallet();
-const [coatChecks, setCoatChecks] = useState([]);
+ const [coatChecks, setCoatChecks] = useState([]);
+ const [renderIncrement, setRenderIncrement] = useState(0);
+
  //get all coatchecks for a given authority
 
  const getCoatChecks =  useCallback(async () => {  
@@ -16,14 +18,32 @@ const [coatChecks, setCoatChecks] = useState([]);
     const coatChecksJson = await coatChecks.json();
     console.log("coatChecks", coatChecksJson);
     return coatChecksJson;
- }, [publicKey]);
+ }, [publicKey,renderIncrement]);
+
+ const handleEdit = (id: string) => {
+  console.log("handleEdit", id);
+ }
+
+ const handleDelete = async (id: string) => {
+  console.log("handleDelete", id);
+
+    //delete from db
+    try{
+    const response = await fetch(`/api/protected/coatcheck/${id}/delete`);
+    const data = await response.json();
+    console.log("data", data);
+    setRenderIncrement(renderIncrement + 1);
+  } catch (error) {
+    console.error("Error deleting coat check", error);
+  }
+ }
 
  useEffect(() => {
       getCoatChecks().then((coatChecks) => {
         
         setCoatChecks(coatChecks);
     });
- }, [getCoatChecks]);
+ }, [getCoatChecks,renderIncrement]);
 
 
   return <div>
@@ -32,19 +52,24 @@ const [coatChecks, setCoatChecks] = useState([]);
 
 
     <section className="max-w-6xl mx-auto p-4">
+      
       <h2 className="text-2xl font-bold mb-6">Your Coat Checks ({coatChecks.length}) </h2>
+      
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+      
         {coatChecks.map((coatCheck: any) => (
-          <Link 
-            href={`/coatcheck/${coatCheck.id}`}
-            key={coatCheck.id}
-            className="block hover:transform hover:scale-105 transition-transform duration-200"
-          >
+          
             <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-6 border border-gray-200 dark:border-gray-700">
               <div className="mb-3">
                 <label className="text-sm font-medium text-gray-500 dark:text-gray-400">Name</label>
                 <h3 className="text-xl font-semibold text-gray-800 dark:text-white">
-                  {coatCheck.name}
+                <Link 
+                href={`/coatcheck/${coatCheck.id}`}
+                key={coatCheck.id}
+                className="block hover:transform hover:scale-105 transition-transform duration-200"
+              > 
+                {coatCheck.name}  
+              </Link>
                 </h3>
               </div>
               <div>
@@ -53,8 +78,16 @@ const [coatChecks, setCoatChecks] = useState([]);
                   {coatCheck.description}
                 </p>
               </div>
+
+              <div className="flex justify-end">
+                
+                  <button className="text-primary bg-neutral-dark p-2 hover:bg-neutral-hover rounded-md mr-2 my-2" onClick={()=>handleEdit(coatCheck.id)}>Edit</button>
+                
+                  <button className="text-primary bg-neutral-dark p-2 hover:bg-neutral-hover rounded-md my-2" onClick={()=>handleDelete(coatCheck.id)}>Delete</button>
+              
+              </div>
             </div>
-          </Link>
+          
         ))}
       </div>
       {coatChecks.length === 0 && (
@@ -65,7 +98,7 @@ const [coatChecks, setCoatChecks] = useState([]);
     </section>
 
     <div className='flex justify-center'>
-      <CreateCoatCheck />
+      <CreateCoatCheck  renderIncrement={renderIncrement} setRenderIncrement={setRenderIncrement} />
     </div>
 
   </div>

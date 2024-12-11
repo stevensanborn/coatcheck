@@ -2,9 +2,6 @@
 
 import createAuthority from "@/libs/database/coatcheck/authority/create";
 import createCoatCheck from "@/libs/database/create";
-import create from "@/libs/database/create";
-import { publicKey } from "@coral-xyz/anchor/dist/cjs/utils";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";

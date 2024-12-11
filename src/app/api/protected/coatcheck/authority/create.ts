@@ -1,7 +1,3 @@
-// // This is an example of to protect an API route
-
-import { publicKey } from "@coral-xyz/anchor/dist/cjs/utils";
-import type { NextApiRequest, NextApiResponse } from "next";
 import { getToken } from "next-auth/jwt";
 import { NextResponse } from "next/server";
 import { NextRequest } from "next/server";

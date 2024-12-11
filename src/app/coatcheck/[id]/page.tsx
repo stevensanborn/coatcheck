@@ -7,6 +7,7 @@ import { CoatCheck } from "@prisma/client";
 import { ErrorBoundary } from "react-error-boundary";
 import ListSubscriptions from "@/components/subscription/ListSubscriptions";
 import CreateSubscription from "@/components/subscription/CreateSubscription";
+import Link from "next/link";
 
 // Create a client
 const queryClient = new QueryClient();
@@ -52,7 +53,11 @@ export default function Page({ params }: { params: { id: string }}) {
   return (
     <QueryClientProvider client={queryClient}>
       <div>
+        
+        <Link href="/coatcheck/dashboard"><button className="text-primary bg-neutral-dark p-2 hover:bg-neutral-hover rounded-md">Back</button> </Link>
+        
         <h1>Coat Check</h1>
+        
         <ErrorBoundary
           FallbackComponent={ErrorFallback}
           onReset={() => {
