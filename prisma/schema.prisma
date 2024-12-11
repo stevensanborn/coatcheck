@@ -1,0 +1,48 @@
+// schema.prisma
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+model CoatCheck {
+  id        String     @default(cuid()) @id
+  name      String
+  description String? 
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  published Boolean @default(false)
+  authorityKey  String?
+  authority    CoatCheckAuthorityAccount?   @relation(fields: [authorityKey], references: [publicKey])
+  subscriptions Subscription[]
+
+}
+
+model Subscription {
+  id        String     @default(cuid()) @id
+  name      String
+  duration  Int
+  price     Int
+  coatCheckId String
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at")
+  coatCheck CoatCheck @relation(fields: [coatCheckId], references: [id])
+}
+
+model CoatCheckAuthorityAccount {
+  id        String     @default(cuid()) @id
+  name     String?
+  email    String?   @unique
+  createdAt     DateTime  @default(now()) @map(name: "created_at")
+  updatedAt     DateTime  @updatedAt @map(name: "updated_at") 
+  publicKey     String @unique
+  coatChecks    CoatCheck[]
+}
+
+
+
